@@ -601,6 +601,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize language
     switchLanguage(currentLanguage);
     
+    // Force language switch to ensure all elements are updated
+    setTimeout(() => {
+        switchLanguage(currentLanguage);
+    }, 100);
+    
     // Detect Font Awesome and apply fallbacks if needed
     setTimeout(detectFontAwesome, 1000);
     
