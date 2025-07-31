@@ -625,17 +625,10 @@ async function loadSocialMediaLinks() {
                 link.rel = 'noopener noreferrer';
                 link.className = social.platform;
                 
-                // Set appropriate icon
-                const iconClass = {
-                    'instagram': 'fab fa-instagram',
-                    'twitter': 'fab fa-twitter', 
-                    'linkedin': 'fab fa-linkedin',
-                    'youtube': 'fab fa-youtube',
-                    'github': 'fab fa-github',
-                    'telegram': 'fab fa-telegram-plane'
-                }[social.platform] || 'fas fa-link';
+                // Set appropriate icon image
+                const iconSrc = `/icons/${social.platform}.svg`;
                 
-                link.innerHTML = `<i class="${iconClass}"></i>`;
+                link.innerHTML = `<img src="${iconSrc}" alt="${social.platform}" loading="lazy">`;
                 socialContainer.appendChild(link);
             });
         }

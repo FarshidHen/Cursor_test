@@ -1320,18 +1320,11 @@
                 const card = document.createElement('div');
                 card.className = `social-card ${social.platform}`;
                 
-                const iconClass = {
-                    'instagram': 'fab fa-instagram',
-                    'twitter': 'fab fa-twitter',
-                    'linkedin': 'fab fa-linkedin',
-                    'youtube': 'fab fa-youtube',
-                    'github': 'fab fa-github',
-                    'telegram': 'fab fa-telegram-plane'
-                }[social.platform] || 'fas fa-link';
+                const iconSrc = `/icons/${social.platform}.svg`;
 
                 card.innerHTML = `
                     <div class="social-platform">
-                        <i class="${iconClass}"></i>
+                        <img src="${iconSrc}" alt="${social.platform}" width="24" height="24">
                         ${social.platform.charAt(0).toUpperCase() + social.platform.slice(1)}
                     </div>
                     <div class="social-url">${social.url}</div>
