@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
-const Database = require('../database/postgres');
+const Database = require('../database/db');
 
 const router = express.Router();
 const db = new Database();

@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
-const Database = require('./database/postgres');
+const Database = require('./database/db');
 const contactRoutes = require('./routes/contact');
 const adminRoutes = require('./routes/admin');
 require('dotenv').config();

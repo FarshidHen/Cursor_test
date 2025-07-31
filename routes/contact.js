@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const Database = require('../database/postgres');
+const Database = require('../database/db');
 const nodemailer = require('nodemailer');
 
 const router = express.Router();

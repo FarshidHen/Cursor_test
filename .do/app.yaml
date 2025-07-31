@@ -30,9 +30,8 @@ services:
   http_port: 8080
   routes:
   - path: /
-
-# Persistent storage for SQLite database
-storage:
-- name: sqlite-data
-  path: /app/data
-  size_gb: 1
+  # Persistent storage for SQLite database
+  volumes:
+  - name: sqlite-data
+    mount_path: /app/data
+    size: 1GB

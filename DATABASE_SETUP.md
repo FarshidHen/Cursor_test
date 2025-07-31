@@ -1,128 +1,91 @@
-# 🗄️ راهنمای تنظیم Database
+# 💾 **SQLite + Persistent Storage**
 
-## 📊 **گزینه‌های Database**
+## 🎯 **چگونه کار می‌کند؟**
 
-### **Development (SQLite)**
-- خودکار در `/data/shopify_studio.db`
-- نیازی به تنظیم خاص نیست
+### **SQLite Database:**
+- **فایل:** `/app/data/shopify_studio.db`
+- **سریع و ساده** برای پروژه‌های کوچک تا متوسط
+- **رایگان** - هیچ هزینه اضافی نداره
 
-### **Production (PostgreSQL)**
-- داده‌ها حفظ می‌شوند
-- Performance بهتر
-- Scalable
+### **Persistent Volume:**
+- **حجم:** 1GB storage مخصوص database
+- **Mount Path:** `/app/data/`
+- **تضمین:** داده‌ها بین deployments حفظ می‌شوند
 
-## 🚀 **تنظیم PostgreSQL در DigitalOcean**
+## ✅ **مزایای این راه‌حل:**
 
-### **مرحله 1: ایجاد Database**
+1. **💰 رایگان** - بدون هزینه اضافی
+2. **🚀 سریع** - SQLite خیلی سریعه
+3. **💾 Persistent** - داده‌ها پاک نمی‌شوند
+4. **🛠️ ساده** - نیازی به تنظیم پیچیده نیست
+5. **🔧 مناسب** - برای پروژه‌های کوچک تا متوسط کافیه
 
-1. **برو به** [DigitalOcean Databases](https://cloud.digitalocean.com/databases)
-2. **"Create Database"** کلیک کن
-3. **تنظیمات:**
-   - **Engine:** PostgreSQL 15
-   - **Size:** Basic ($15/month - 1GB RAM)
-   - **Region:** همون منطقه App شما
-   - **Database Name:** `shopify_studio`
-   - **User:** `shopifyapp`
+## 📊 **ظرفیت:**
 
-### **مرحله 2: اتصال به App**
+- **تا 1000 پیام در روز** ✅
+- **چندین کاربر همزمان** ✅
+- **Admin panel سریع** ✅
+- **Backup آسان** ✅
 
-پس از ایجاد Database:
+## 🔄 **Automatic Setup:**
 
-1. **Connection Details** رو کپی کن
-2. **برو به App Platform** > **Environment Variables**
-3. **اضافه کن:**
+هیچ کار خاصی نیاز نیست! App خودکار:
 
-```
-DATABASE_URL = postgresql://username:password@host:port/database?sslmode=require
-```
+1. **Volume می‌سازه** در `/app/data/`
+2. **Database فایل** رو ایجاد می‌کنه
+3. **Tables** رو می‌سازه
+4. **Admin account** رو درست می‌کنه
+5. **داده‌ها** رو حفظ می‌کنه
 
-**مثال:**
-```
-DATABASE_URL = postgresql://shopifyapp:password123@db-postgresql-nyc1-12345-do-user-67890-0.b.db.ondigitalocean.com:25060/shopify_studio?sslmode=require
-```
+## 💾 **Backup Manual:**
 
-### **مرحله 3: Test Connection**
+اگر می‌خوای backup دستی بگیری:
 
-App خودکار تشخیص می‌دهد:
-- **اگر `DATABASE_URL` موجود باشد** ➜ PostgreSQL
-- **اگر نباشد** ➜ SQLite (development)
-
-## 💰 **مقایسه هزینه‌ها**
-
-| Database | هزینه ماهانه | مزایا | معایب |
-|----------|-------------|-------|-------|
-| **SQLite** | رایگان | ساده، سریع | داده‌ها پاک می‌شوند |
-| **PostgreSQL Basic** | $15 | Persistent، قابل اعتماد | هزینه اضافی |
-| **PostgreSQL Pro** | $35 | High Performance | گران‌تر |
-
-## 🔄 **Migration داده‌ها**
-
-### **انتقال از SQLite به PostgreSQL:**
-
+### **از App Platform:**
 ```bash
-# 1. Export از SQLite
-sqlite3 data/shopify_studio.db .dump > backup.sql
-
-# 2. تبدیل به PostgreSQL format
-# (manual conversion یا tools)
-
-# 3. Import به PostgreSQL
-psql $DATABASE_URL < converted_backup.sql
+# دانلود backup
+# (باید SSH access داشته باشی)
+scp user@server:/app/data/shopify_studio.db ./backup.db
 ```
 
-## 🛡️ **Backup خودکار**
-
-DigitalOcean خودکار backup می‌گیرد:
-- **Daily backups** برای 7 روز
-- **Weekly backups** برای 4 هفته
-- **Monthly backups** برای 3 ماه
-
-## 🔧 **تنظیمات محیط**
-
-```env
-# Development (SQLite)
-# DATABASE_URL= (خالی بذارید)
-
-# Production (PostgreSQL)
-DATABASE_URL=postgresql://user:pass@host:port/db?sslmode=require
-```
-
-## 📊 **مانیتورینگ**
-
-در DigitalOcean Database dashboard:
-- **CPU Usage**
-- **Memory Usage**
-- **Connection Count**
-- **Query Performance**
-
-## 🚨 **نکات مهم**
-
-1. **همیشه SSL استفاده کنید** (`?sslmode=require`)
-2. **Password های قوی** انتخاب کنید
-3. **Firewall تنظیم کنید** (فقط App دسترسی داشته باشد)
-4. **منظم backup بگیرید**
-
-## 🆘 **عیب‌یابی**
-
-### **خطای اتصال:**
+### **Export کردن:**
 ```bash
-# چک کردن environment variable
-echo $DATABASE_URL
-
-# تست اتصال
-psql $DATABASE_URL -c "SELECT 1;"
+# تبدیل به SQL
+sqlite3 shopify_studio.db .dump > backup.sql
 ```
 
-### **خطای Migration:**
-```bash
-# Reset tables (خطرناک!)
-# فقط در development
-npm run migrate:reset
-```
+## 📈 **Scaling:**
 
-## 📞 **پشتیبانی**
+اگر پروژه خیلی بزرگ شد:
+- **بیش از 10,000 پیام در روز**
+- **بیش از 100 کاربر همزمان**
 
-اگر مشکل داشتی:
-1. **Database logs** رو چک کن
-2. **App logs** رو ببین
-3. **Connection string** رو تأیید کن
+آنوقت می‌تونی به PostgreSQL migrate کنی.
+
+## 🚨 **نکات مهم:**
+
+1. **Volume فقط برای یک app** قابل استفاده است
+2. **Backup منظم** بگیر (هر هفته)
+3. **اگر app رو delete کنی** volume هم پاک می‌شه
+4. **حجم volume** قابل افزایش است (1GB ➜ 5GB)
+
+## 🔍 **مانیتورینگ:**
+
+در App Platform می‌تونی ببینی:
+- **Storage Usage** (چقدر فضا استفاده شده)
+- **App Performance**
+- **Request Logs**
+
+## ✨ **چرا این راه‌حل بهتره؟**
+
+| جنبه | SQLite + Volume | PostgreSQL |
+|------|----------------|------------|
+| **هزینه** | رایگان | $15+/ماه |
+| **سرعت** | خیلی سریع | سریع |
+| **تنظیم** | خودکار | دستی |
+| **Backup** | ساده | پیچیده‌تر |
+| **مناسب برای** | تا 10K پیام/روز | +100K پیام/روز |
+
+## 🎉 **نتیجه:**
+
+این راه‌حل برای 95% پروژه‌ها کاملاً کافیه و هیچ هزینه اضافی نداره! 🚀
