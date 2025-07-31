@@ -151,9 +151,9 @@ class Database {
     async createDefaultSocialMedia() {
         const defaultPlatforms = [
             { platform: 'instagram', url: 'https://instagram.com/shopifystudio', is_active: 1 },
-            { platform: 'twitter', url: 'https://twitter.com/shopifystudio', is_active: 1 },
             { platform: 'linkedin', url: 'https://linkedin.com/company/shopifystudio', is_active: 1 },
-            { platform: 'youtube', url: 'https://youtube.com/@shopifystudio', is_active: 1 }
+            { platform: 'github', url: 'https://github.com/shopifystudio', is_active: 1 },
+            { platform: 'telegram', url: 'https://t.me/shopifystudio', is_active: 1 }
         ];
 
         const insertSocial = `

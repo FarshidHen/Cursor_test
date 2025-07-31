@@ -513,9 +513,11 @@ async function loadSocialMediaLinks() {
                 // Set appropriate icon
                 const iconClass = {
                     'instagram': 'fab fa-instagram',
-                    'twitter': 'fab fa-twitter',
+                    'twitter': 'fab fa-twitter', 
                     'linkedin': 'fab fa-linkedin',
-                    'youtube': 'fab fa-youtube'
+                    'youtube': 'fab fa-youtube',
+                    'github': 'fab fa-github',
+                    'telegram': 'fab fa-telegram-plane'
                 }[social.platform] || 'fas fa-link';
                 
                 link.innerHTML = `<i class="${iconClass}"></i>`;

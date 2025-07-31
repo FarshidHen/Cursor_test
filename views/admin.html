@@ -593,6 +593,14 @@
             border-color: #ff0000;
         }
 
+        .social-card.github {
+            border-color: #333;
+        }
+
+        .social-card.telegram {
+            border-color: #0088cc;
+        }
+
         .social-platform {
             display: flex;
             align-items: center;
@@ -620,6 +628,14 @@
 
         .social-platform i.fa-youtube {
             color: #ff0000;
+        }
+
+        .social-platform i.fa-github {
+            color: #333;
+        }
+
+        .social-platform i.fa-telegram-plane {
+            color: #0088cc;
         }
 
         .social-url {
@@ -860,8 +876,10 @@
                     <select id="socialPlatform" name="platform" required>
                         <option value="">انتخاب کنید</option>
                         <option value="instagram">Instagram</option>
-                        <option value="twitter">Twitter</option>
                         <option value="linkedin">LinkedIn</option>
+                        <option value="github">GitHub</option>
+                        <option value="telegram">Telegram</option>
+                        <option value="twitter">Twitter</option>
                         <option value="youtube">YouTube</option>
                     </select>
                 </div>
@@ -1306,7 +1324,9 @@
                     'instagram': 'fab fa-instagram',
                     'twitter': 'fab fa-twitter',
                     'linkedin': 'fab fa-linkedin',
-                    'youtube': 'fab fa-youtube'
+                    'youtube': 'fab fa-youtube',
+                    'github': 'fab fa-github',
+                    'telegram': 'fab fa-telegram-plane'
                 }[social.platform] || 'fas fa-link';
 
                 card.innerHTML = `

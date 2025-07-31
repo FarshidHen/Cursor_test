@@ -508,8 +508,8 @@ body {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
     margin-bottom: 2rem;
 }
 
@@ -528,8 +528,7 @@ body {
     font-size: 0.9rem;
 }
 
-.footer-links h4,
-.footer-contact h4 {
+.footer-links h4 {
     margin-bottom: 1rem;
     color: var(--primary-blue);
 }
@@ -547,18 +546,6 @@ body {
 
 .footer-links a:hover {
     color: var(--white);
-}
-
-.footer-contact p {
-    color: var(--gray-400);
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.footer-contact i {
-    color: var(--primary-red);
 }
 
 .footer-bottom {
@@ -603,42 +590,75 @@ body {
 .social-links {
     display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    justify-content: flex-start;
 }
 
 .social-links a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-    color: var(--white);
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    color: var(--white);
+    border: 2px solid transparent;
 }
 
 .social-links a:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow);
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .social-links a.instagram {
-    background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045);
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+}
+
+.social-links a.instagram:hover {
+    box-shadow: 0 8px 25px rgba(225, 48, 108, 0.4);
 }
 
 .social-links a.twitter {
-    background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+    background: linear-gradient(45deg, #1da1f2, #0d95e8);
+}
+
+.social-links a.twitter:hover {
+    box-shadow: 0 8px 25px rgba(29, 161, 242, 0.4);
 }
 
 .social-links a.linkedin {
-    background: linear-gradient(135deg, #0077b5, #00a0dc);
+    background: linear-gradient(45deg, #0077b5, #005885);
+}
+
+.social-links a.linkedin:hover {
+    box-shadow: 0 8px 25px rgba(0, 119, 181, 0.4);
 }
 
 .social-links a.youtube {
-    background: linear-gradient(135deg, #ff0000, #cc0000);
+    background: linear-gradient(45deg, #ff0000, #cc0000);
+}
+
+.social-links a.youtube:hover {
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+}
+
+.social-links a.github {
+    background: linear-gradient(45deg, #333, #24292e);
+}
+
+.social-links a.github:hover {
+    box-shadow: 0 8px 25px rgba(36, 41, 46, 0.4);
+}
+
+.social-links a.telegram {
+    background: linear-gradient(45deg, #0088cc, #006bb3);
+}
+
+.social-links a.telegram:hover {
+    box-shadow: 0 8px 25px rgba(0, 136, 204, 0.4);
 }
 
 /* Admin Panel Link */
@@ -724,6 +744,14 @@ body {
         grid-template-columns: 1fr;
         gap: 2rem;
         text-align: center;
+    }
+    
+    .footer-brand {
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
     }
     
     .intro-buttons {
