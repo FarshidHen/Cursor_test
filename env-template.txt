@@ -1,0 +1,28 @@
+# کپی کنید و به نام .env ذخیره کنید
+# Copy this and save as .env
+
+NODE_ENV=development
+PORT=3000
+FRONTEND_URL=http://localhost:3000
+
+# JWT Secret - یک کلید امن انتخاب کنید
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-12345
+
+# مشخصات ادمین پیش فرض
+ADMIN_EMAIL=admin@shopifystudio.ir
+ADMIN_PASSWORD=admin123
+
+# تنظیمات ایمیل (اختیاری)
+EMAIL_FROM=noreply@shopifystudio.ir
+
+# برای Gmail:
+# EMAIL_SERVICE=gmail
+# EMAIL_USER=your-email@gmail.com
+# EMAIL_PASS=your-app-password
+
+# برای SMTP:
+# SMTP_HOST=smtp.example.com
+# SMTP_PORT=587
+# SMTP_SECURE=false
+# SMTP_USER=your-email@example.com
+# SMTP_PASS=your-password

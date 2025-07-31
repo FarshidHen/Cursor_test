@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت - شاپیفای استودیو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --primary-red: #dc2626;
+            --secondary-red: #ef4444;
+            --light-red: #fecaca;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --green-500: #10b981;
+            --green-100: #d1fae5;
+            --yellow-500: #f59e0b;
+            --yellow-100: #fef3c7;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: var(--gray-50);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+        }
+
+        .login-form {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-form h1 {
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .header {
+            background: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+        }
+
+        .btn-logout {
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .btn-logout:hover {
+            background: var(--secondary-red);
+        }
+
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-card.primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, var(--green-500), #34d399);
+            color: var(--white);
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, var(--yellow-500), #fbbf24);
+            color: var(--white);
+        }
+
+        .stat-card.danger {
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+            color: var(--white);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card-icon {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        .stat-card-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Filters */
+        .filters {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .filters select,
+        .filters input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .filters select:focus,
+        .filters input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .btn-filter {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+        }
+
+        .btn-export {
+            background: var(--green-500);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+        }
+
+        /* Contacts Table */
+        .contacts-section {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .contacts-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .contacts-table th,
+        .contacts-table td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .contacts-table th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .contacts-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-new {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .status-in_progress {
+            background: var(--yellow-100);
+            color: var(--yellow-500);
+        }
+
+        .status-resolved {
+            background: var(--green-100);
+            color: var(--green-500);
+        }
+
+        .status-spam {
+            background: var(--light-red);
+            color: var(--primary-red);
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-action {
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-view {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-edit {
+            background: var(--yellow-500);
+            color: var(--white);
+        }
+
+        .btn-delete {
+            background: var(--primary-red);
+            color: var(--white);
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid var(--gray-200);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error Messages */
+        .error-message {
+            background: var(--light-red);
+            color: var(--primary-red);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contacts-table {
+                font-size: 0.9rem;
+            }
+
+            .contacts-table th,
+            .contacts-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-400);
+        }
+
+        .btn-close:hover {
+            color: var(--gray-600);
+        }
+
+        .contact-details {
+            line-height: 1.8;
+        }
+
+        .contact-details h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .contact-details h4:first-child {
+            margin-top: 0;
+        }
+
+        .contact-details p {
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .message-content {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: 8px;
+            border-right: 4px solid var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <form id="loginForm" class="login-form">
+            <h1><i class="fas fa-user-shield"></i> ورود به پنل مدیریت</h1>
+            
+            <div id="loginError" class="error-message" style="display: none;"></div>
+            
+            <div class="form-group">
+                <label for="username">نام کاربری:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">رمز عبور:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i>
+                ورود
+            </button>
+        </form>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1><i class="fas fa-tachometer-alt"></i> پنل مدیریت شاپیفای استودیو</h1>
+                    <div class="header-actions">
+                        <div class="user-info">
+                            <i class="fas fa-user"></i>
+                            <span id="userInfo">ادمین</span>
+                        </div>
+                        <button class="btn btn-logout" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            خروج
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Statistics -->
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-number" id="totalContacts">0</div>
+                        <div class="stat-card-label">کل پیام‌ها</div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-number" id="newContacts">0</div>
+                        <div class="stat-card-label">پیام‌های جدید</div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-number" id="todayContacts">0</div>
+                        <div class="stat-card-label">امروز</div>
+                    </div>
+                    
+                    <div class="stat-card danger">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-number" id="growthRate">0%</div>
+                        <div class="stat-card-label">رشد ماهانه</div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filters-grid">
+                        <div class="form-group">
+                            <label>جستجو:</label>
+                            <input type="text" id="searchInput" placeholder="نام، ایمیل یا پیام...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>وضعیت:</label>
+                            <select id="statusFilter">
+                                <option value="">همه</option>
+                                <option value="new">جدید</option>
+                                <option value="in_progress">در حال بررسی</option>
+                                <option value="resolved">حل شده</option>
+                                <option value="spam">اسپم</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>نوع خدمات:</label>
+                            <select id="serviceFilter">
+                                <option value="">همه</option>
+                                <option value="app-development">توسعه برنامه</option>
+                                <option value="theme-customization">سفارشی‌سازی قالب</option>
+                                <option value="store-setup">راه‌اندازی فروشگاه</option>
+                                <option value="consultation">مشاوره</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button class="btn btn-filter" onclick="applyFilters()">
+                                <i class="fas fa-filter"></i>
+                                اعمال فیلتر
+                            </button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button class="btn btn-export" onclick="exportContacts()">
+                                <i class="fas fa-download"></i>
+                                خروجی CSV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contacts Table -->
+                <div class="contacts-section">
+                    <div class="section-header">
+                        <h2 class="section-title">پیام‌های تماس</h2>
+                        <button class="btn btn-primary" onclick="refreshContacts()">
+                            <i class="fas fa-sync-alt"></i>
+                            بروزرسانی
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div id="contactsLoading" class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                        
+                        <table class="contacts-table" id="contactsTable" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>نام</th>
+                                    <th>ایمیل</th>
+                                    <th>تلفن</th>
+                                    <th>خدمات</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contactsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Contact Details Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">جزئیات پیام</h3>
+                <button class="btn-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="contactModalBody" class="contact-details">
+                <!-- Contact details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let authToken = localStorage.getItem('admin_token');
+        let contacts = [];
+        let filteredContacts = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            if (authToken) {
+                verifyToken();
+            } else {
+                showLoginPage();
+            }
+        });
+
+        // Authentication
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('dashboard').classList.remove('active');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            loadDashboardData();
+        }
+
+        async function verifyToken() {
+            try {
+                const response = await fetch('/api/admin/verify', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById('userInfo').textContent = result.admin.username;
+                    showDashboard();
+                } else {
+                    localStorage.removeItem('admin_token');
+                    authToken = null;
+                    showLoginPage();
+                }
+            } catch (error) {
+                console.error('Token verification failed:', error);
+                localStorage.removeItem('admin_token');
+                authToken = null;
+                showLoginPage();
+            }
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const credentials = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+
+            const loginBtn = document.getElementById('loginBtn');
+            const originalText = loginBtn.innerHTML;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال ورود...';
+            loginBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(credentials)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    authToken = result.token;
+                    localStorage.setItem('admin_token', authToken);
+                    document.getElementById('userInfo').textContent = result.admin.username;
+                    showDashboard();
+                } else {
+                    showError('loginError', result.message);
+                }
+            } catch (error) {
+                console.error('Login failed:', error);
+                showError('loginError', 'خطا در ارتباط با سرور');
+            } finally {
+                loginBtn.innerHTML = originalText;
+                loginBtn.disabled = false;
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('admin_token');
+            authToken = null;
+            showLoginPage();
+        }
+
+        // Dashboard functions
+        async function loadDashboardData() {
+            await Promise.all([
+                loadStats(),
+                loadContacts()
+            ]);
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/admin/dashboard/stats', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const stats = result.data;
+
+                    document.getElementById('totalContacts').textContent = stats.total || 0;
+                    document.getElementById('newContacts').textContent = stats.new || 0;
+                    document.getElementById('todayContacts').textContent = stats.today || 0;
+                    document.getElementById('growthRate').textContent = (stats.growthRate || 0) + '%';
+                }
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+
+        async function loadContacts() {
+            showLoading(true);
+
+            try {
+                const response = await fetch('/api/admin/contacts', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    contacts = result.data.contacts || [];
+                    filteredContacts = [...contacts];
+                    renderContactsTable();
+                } else {
+                    console.error('Failed to load contacts');
+                }
+            } catch (error) {
+                console.error('Failed to load contacts:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function showLoading(show) {
+            document.getElementById('contactsLoading').style.display = show ? 'block' : 'none';
+            document.getElementById('contactsTable').style.display = show ? 'none' : 'table';
+        }
+
+        function renderContactsTable() {
+            const tbody = document.getElementById('contactsTableBody');
+            tbody.innerHTML = '';
+
+            if (filteredContacts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem; color: #6b7280;">پیامی یافت نشد</td></tr>';
+                return;
+            }
+
+            filteredContacts.forEach(contact => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${contact.name}</td>
+                    <td>${contact.email}</td>
+                    <td>${contact.phone || '-'}</td>
+                    <td>${getServiceName(contact.service)}</td>
+                    <td><span class="status-badge status-${contact.status}">${getStatusName(contact.status)}</span></td>
+                    <td>${new Date(contact.created_at).toLocaleDateString('fa-IR')}</td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn-action btn-view" onclick="viewContact(${contact.id})" title="مشاهده">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-action btn-edit" onclick="updateStatus(${contact.id})" title="تغییر وضعیت">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-action btn-delete" onclick="deleteContact(${contact.id})" title="حذف">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function getServiceName(service) {
+            const names = {
+                'app-development': 'توسعه برنامه',
+                'theme-customization': 'سفارشی‌سازی قالب',
+                'store-setup': 'راه‌اندازی فروشگاه',
+                'consultation': 'مشاوره'
+            };
+            return names[service] || service;
+        }
+
+        function getStatusName(status) {
+            const names = {
+                'new': 'جدید',
+                'in_progress': 'در حال بررسی',
+                'resolved': 'حل شده',
+                'spam': 'اسپم'
+            };
+            return names[status] || status;
+        }
+
+        // Filter and search
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+            const service = document.getElementById('serviceFilter').value;
+
+            filteredContacts = contacts.filter(contact => {
+                const matchesSearch = !search || 
+                    contact.name.toLowerCase().includes(search) ||
+                    contact.email.toLowerCase().includes(search) ||
+                    contact.message.toLowerCase().includes(search);
+
+                const matchesStatus = !status || contact.status === status;
+                const matchesService = !service || contact.service === service;
+
+                return matchesSearch && matchesStatus && matchesService;
+            });
+
+            renderContactsTable();
+        }
+
+        // Real-time search
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Contact actions
+        async function viewContact(id) {
+            try {
+                const response = await fetch(`/api/admin/contacts/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const contact = result.data;
+                    
+                    document.getElementById('contactModalBody').innerHTML = `
+                        <h4>اطلاعات شخصی</h4>
+                        <p><strong>نام:</strong> ${contact.name}</p>
+                        <p><strong>ایمیل:</strong> ${contact.email}</p>
+                        <p><strong>تلفن:</strong> ${contact.phone || 'ارائه نشده'}</p>
+                        
+                        <h4>اطلاعات درخواست</h4>
+                        <p><strong>نوع خدمات:</strong> ${getServiceName(contact.service)}</p>
+                        <p><strong>وضعیت:</strong> <span class="status-badge status-${contact.status}">${getStatusName(contact.status)}</span></p>
+                        <p><strong>تاریخ ارسال:</strong> ${new Date(contact.created_at).toLocaleString('fa-IR')}</p>
+                        
+                        <h4>پیام</h4>
+                        <div class="message-content">
+                            ${contact.message}
+                        </div>
+                        
+                        ${contact.ip_address ? `
+                        <h4>اطلاعات فنی</h4>
+                        <p><strong>IP:</strong> ${contact.ip_address}</p>
+                        ` : ''}
+                    `;
+                    
+                    document.getElementById('contactModal').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Failed to load contact details:', error);
+            }
+        }
+
+        async function updateStatus(id) {
+            const newStatus = prompt('وضعیت جدید را انتخاب کنید:\n• new - جدید\n• in_progress - در حال بررسی\n• resolved - حل شده\n• spam - اسپم');
+            
+            if (!newStatus || !['new', 'in_progress', 'resolved', 'spam'].includes(newStatus)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/admin/contacts/${id}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                if (response.ok) {
+                    await loadContacts();
+                    await loadStats();
+                } else {
+                    alert('خطا در به‌روزرسانی وضعیت');
+                }
+            } catch (error) {
+                console.error('Failed to update status:', error);
+                alert('خطا در ارتباط با سرور');
+            }
+        }
+
+        async function deleteContact(id) {
+            if (!confirm('آیا از حذف این پیام اطمینان دارید؟')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/admin/contacts/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    await loadContacts();
+                    await loadStats();
+                } else {
+                    alert('خطا در حذف پیام');
+                }
+            } catch (error) {
+                console.error('Failed to delete contact:', error);
+                alert('خطا در ارتباط با سرور');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+
+        function refreshContacts() {
+            loadContacts();
+            loadStats();
+        }
+
+        async function exportContacts() {
+            try {
+                const response = await fetch('/api/admin/contacts/export/csv', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'contacts.csv';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    alert('خطا در صادرات فایل');
+                }
+            } catch (error) {
+                console.error('Failed to export contacts:', error);
+                alert('خطا در ارتباط با سرور');
+            }
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('contactModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
