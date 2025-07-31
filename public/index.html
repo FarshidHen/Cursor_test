@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شاپیفای استودیو - توسعه‌دهنده برنامه‌های شاپیفای</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -17,9 +18,13 @@
                     <h2><i class="fas fa-store"></i> شاپیفای استودیو</h2>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#intro" class="nav-link">خانه</a></li>
-                    <li><a href="#about" class="nav-link">درباره ما</a></li>
-                    <li><a href="#contact" class="nav-link">تماس با ما</a></li>
+                    <li><a href="#intro" class="nav-link" data-key="nav-home">خانه</a></li>
+                    <li><a href="#about" class="nav-link" data-key="nav-about">درباره ما</a></li>
+                    <li><a href="#contact" class="nav-link" data-key="nav-contact">تماس با ما</a></li>
+                    <li class="language-switcher">
+                        <button class="lang-btn active" data-lang="fa">فا</button>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </li>
                 </ul>
                 <div class="hamburger">
                     <span></span>
@@ -188,25 +193,31 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3><i class="fas fa-store"></i> شاپیفای استودیو</h3>
-                    <p>توسعه‌دهنده حرفه‌ای برنامه‌های شاپیفای</p>
+                    <h3><i class="fas fa-store"></i> <span data-key="company-name">شاپیفای استودیو</span></h3>
+                    <p data-key="company-description">توسعه‌دهنده حرفه‌ای برنامه‌های شاپیفای</p>
+                    <div class="social-links" id="socialLinksFooter">
+                        <!-- Social links will be loaded dynamically -->
+                    </div>
                 </div>
                 <div class="footer-links">
-                    <h4>لینک‌های مفید</h4>
+                    <h4 data-key="useful-links">لینک‌های مفید</h4>
                     <ul>
-                        <li><a href="#intro">خانه</a></li>
-                        <li><a href="#about">درباره ما</a></li>
-                        <li><a href="#contact">تماس با ما</a></li>
+                        <li><a href="#intro" data-key="nav-home">خانه</a></li>
+                        <li><a href="#about" data-key="nav-about">درباره ما</a></li>
+                        <li><a href="#contact" data-key="nav-contact">تماس با ما</a></li>
+                        <li><a href="/admin" target="_blank" data-key="admin-panel">
+                            <i class="fas fa-user-shield"></i> پنل مدیریت
+                        </a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
-                    <h4>تماس سریع</h4>
+                    <h4 data-key="quick-contact">تماس سریع</h4>
                     <p><i class="fas fa-phone"></i> 021-12345678</p>
                     <p><i class="fas fa-envelope"></i> info@shopifystudio.ir</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; ۲۰۲۴ شاپیفای استودیو. تمامی حقوق محفوظ است.</p>
+                <p data-key="copyright">&copy; ۲۰۲۴ شاپیفای استودیو. تمامی حقوق محفوظ است.</p>
             </div>
         </div>
     </footer>

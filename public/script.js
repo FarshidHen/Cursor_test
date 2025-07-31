@@ -426,6 +426,107 @@ function typeWriter(element, text, speed = 100) {
     type();
 }
 
+// Language System
+const translations = {
+    fa: {
+        'nav-home': 'خانه',
+        'nav-about': 'درباره ما',
+        'nav-contact': 'تماس با ما',
+        'company-name': 'شاپیفای استودیو',
+        'company-description': 'توسعه‌دهنده حرفه‌ای برنامه‌های شاپیفای',
+        'useful-links': 'لینک‌های مفید',
+        'admin-panel': 'پنل مدیریت',
+        'quick-contact': 'تماس سریع',
+        'copyright': '© ۲۰۲۴ شاپیفای استودیو. تمامی حقوق محفوظ است.'
+    },
+    en: {
+        'nav-home': 'Home',
+        'nav-about': 'About Us',
+        'nav-contact': 'Contact',
+        'company-name': 'Shopify Studio',
+        'company-description': 'Professional Shopify App Developer',
+        'useful-links': 'Useful Links',
+        'admin-panel': 'Admin Panel',
+        'quick-contact': 'Quick Contact',
+        'copyright': '© 2024 Shopify Studio. All rights reserved.'
+    }
+};
+
+let currentLanguage = localStorage.getItem('language') || 'fa';
+
+function switchLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('language', lang);
+    
+    // Update HTML attributes
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+    document.body.className = lang === 'fa' ? 'rtl' : 'ltr';
+    
+    // Update all translatable elements
+    document.querySelectorAll('[data-key]').forEach(element => {
+        const key = element.getAttribute('data-key');
+        if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+        }
+    });
+    
+    // Update language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+}
+
+// Language button event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            switchLanguage(lang);
+        });
+    });
+    
+    // Initialize language
+    switchLanguage(currentLanguage);
+    
+    // Load social media links
+    loadSocialMediaLinks();
+});
+
+// Social Media Loading
+async function loadSocialMediaLinks() {
+    try {
+        const response = await fetch('/api/contact/social-media');
+        const result = await response.json();
+        
+        if (result.success && result.data.length > 0) {
+            const socialContainer = document.getElementById('socialLinksFooter');
+            socialContainer.innerHTML = '';
+            
+            result.data.forEach(social => {
+                const link = document.createElement('a');
+                link.href = social.url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = social.platform;
+                
+                // Set appropriate icon
+                const iconClass = {
+                    'instagram': 'fab fa-instagram',
+                    'twitter': 'fab fa-twitter',
+                    'linkedin': 'fab fa-linkedin',
+                    'youtube': 'fab fa-youtube'
+                }[social.platform] || 'fas fa-link';
+                
+                link.innerHTML = `<i class="${iconClass}"></i>`;
+                socialContainer.appendChild(link);
+            });
+        }
+    } catch (error) {
+        console.error('Error loading social media links:', error);
+    }
+}
+
 // Initialize typing effect on load
 document.addEventListener('DOMContentLoaded', () => {
     const introTitle = document.querySelector('.intro-title');

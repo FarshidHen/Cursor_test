@@ -546,6 +546,103 @@
             border-radius: 8px;
             border-right: 4px solid var(--primary-blue);
         }
+
+        /* Social Media Management */
+        .social-media-section {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+
+        .social-card {
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .social-card.instagram {
+            border-color: #e4405f;
+        }
+
+        .social-card.twitter {
+            border-color: #1da1f2;
+        }
+
+        .social-card.linkedin {
+            border-color: #0077b5;
+        }
+
+        .social-card.youtube {
+            border-color: #ff0000;
+        }
+
+        .social-platform {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .social-platform i {
+            font-size: 1.5rem;
+        }
+
+        .social-platform i.fa-instagram {
+            color: #e4405f;
+        }
+
+        .social-platform i.fa-twitter {
+            color: #1da1f2;
+        }
+
+        .social-platform i.fa-linkedin {
+            color: #0077b5;
+        }
+
+        .social-platform i.fa-youtube {
+            color: #ff0000;
+        }
+
+        .social-url {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-bottom: 1rem;
+        }
+
+        .social-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
     </style>
 </head>
 <body>
@@ -686,6 +783,21 @@
                     </div>
                 </div>
 
+                <!-- Social Media Management -->
+                <div class="social-media-section">
+                    <div class="section-header">
+                        <h2 class="section-title">مدیریت شبکه‌های اجتماعی</h2>
+                        <button class="btn btn-primary" onclick="showAddSocialModal()">
+                            <i class="fas fa-plus"></i>
+                            افزودن شبکه اجتماعی
+                        </button>
+                    </div>
+                    
+                    <div class="social-grid" id="socialMediaGrid">
+                        <!-- Social media items will be loaded here -->
+                    </div>
+                </div>
+
                 <!-- Contacts Table -->
                 <div class="contacts-section">
                     <div class="section-header">
@@ -732,6 +844,47 @@
             <div id="contactModalBody" class="contact-details">
                 <!-- Contact details will be loaded here -->
             </div>
+        </div>
+    </div>
+
+    <!-- Social Media Modal -->
+    <div id="socialModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">مدیریت شبکه اجتماعی</h3>
+                <button class="btn-close" onclick="closeSocialModal()">&times;</button>
+            </div>
+            <form id="socialMediaForm">
+                <div class="form-group">
+                    <label for="socialPlatform">پلتفرم:</label>
+                    <select id="socialPlatform" name="platform" required>
+                        <option value="">انتخاب کنید</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="youtube">YouTube</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="socialUrl">آدرس (URL):</label>
+                    <input type="url" id="socialUrl" name="url" required placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="socialActive" name="is_active" checked>
+                        فعال
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        ذخیره
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeSocialModal()">
+                        انصراف
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -840,7 +993,8 @@
         async function loadDashboardData() {
             await Promise.all([
                 loadStats(),
-                loadContacts()
+                loadContacts(),
+                loadSocialMedia()
             ]);
         }
 
@@ -1117,10 +1271,154 @@
             }, 5000);
         }
 
+        // Social Media Management
+        async function loadSocialMedia() {
+            try {
+                const response = await fetch('/api/admin/social-media', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    renderSocialMediaGrid(result.data || []);
+                }
+            } catch (error) {
+                console.error('Failed to load social media:', error);
+            }
+        }
+
+        function renderSocialMediaGrid(socialMedia) {
+            const grid = document.getElementById('socialMediaGrid');
+            grid.innerHTML = '';
+
+            if (socialMedia.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: #6b7280; grid-column: 1/-1;">هیچ شبکه اجتماعی تنظیم نشده است</p>';
+                return;
+            }
+
+            socialMedia.forEach(social => {
+                const card = document.createElement('div');
+                card.className = `social-card ${social.platform}`;
+                
+                const iconClass = {
+                    'instagram': 'fab fa-instagram',
+                    'twitter': 'fab fa-twitter',
+                    'linkedin': 'fab fa-linkedin',
+                    'youtube': 'fab fa-youtube'
+                }[social.platform] || 'fas fa-link';
+
+                card.innerHTML = `
+                    <div class="social-platform">
+                        <i class="${iconClass}"></i>
+                        ${social.platform.charAt(0).toUpperCase() + social.platform.slice(1)}
+                    </div>
+                    <div class="social-url">${social.url}</div>
+                    <div class="social-actions">
+                        <button class="btn-action btn-edit" onclick="editSocialMedia('${social.platform}', '${social.url}')" title="ویرایش">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action btn-delete" onclick="deleteSocialMedia('${social.platform}')" title="حذف">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function showAddSocialModal() {
+            document.getElementById('socialModal').classList.add('active');
+            document.getElementById('socialMediaForm').reset();
+            document.getElementById('socialActive').checked = true;
+        }
+
+        function editSocialMedia(platform, url) {
+            document.getElementById('socialModal').classList.add('active');
+            document.getElementById('socialPlatform').value = platform;
+            document.getElementById('socialUrl').value = url;
+            document.getElementById('socialActive').checked = true;
+        }
+
+        function closeSocialModal() {
+            document.getElementById('socialModal').classList.remove('active');
+        }
+
+        // Social Media Form Handler
+        document.getElementById('socialMediaForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const socialData = {
+                platform: formData.get('platform'),
+                url: formData.get('url'),
+                is_active: formData.get('is_active') ? 1 : 0
+            };
+
+            try {
+                const response = await fetch('/api/admin/social-media', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(socialData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    closeSocialModal();
+                    await loadSocialMedia();
+                    alert('شبکه اجتماعی با موفقیت ذخیره شد');
+                } else {
+                    alert(result.message || 'خطا در ذخیره شبکه اجتماعی');
+                }
+            } catch (error) {
+                console.error('Error saving social media:', error);
+                alert('خطا در ارتباط با سرور');
+            }
+        });
+
+        async function deleteSocialMedia(platform) {
+            if (!confirm(`آیا از حذف ${platform} اطمینان دارید؟`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/admin/social-media/${platform}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    await loadSocialMedia();
+                    alert('شبکه اجتماعی حذف شد');
+                } else {
+                    alert(result.message || 'خطا در حذف شبکه اجتماعی');
+                }
+            } catch (error) {
+                console.error('Error deleting social media:', error);
+                alert('خطا در ارتباط با سرور');
+            }
+        }
+
         // Close modal when clicking outside
         document.getElementById('contactModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
+            }
+        });
+
+        document.getElementById('socialModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSocialModal();
             }
         });
     </script>

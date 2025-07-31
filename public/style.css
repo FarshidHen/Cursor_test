@@ -569,6 +569,101 @@ body {
     font-size: 0.9rem;
 }
 
+/* Language Switcher */
+.language-switcher {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.lang-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--primary-blue);
+    background: transparent;
+    color: var(--primary-blue);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.lang-btn:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.lang-btn.active {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+/* Social Links Footer */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    color: var(--white);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.social-links a.instagram {
+    background: linear-gradient(135deg, #e4405f, #fd1d1d, #fcb045);
+}
+
+.social-links a.twitter {
+    background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+}
+
+.social-links a.linkedin {
+    background: linear-gradient(135deg, #0077b5, #00a0dc);
+}
+
+.social-links a.youtube {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+}
+
+/* Admin Panel Link */
+.footer-links a[href="/admin"] {
+    color: var(--primary-red);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.footer-links a[href="/admin"]:hover {
+    color: var(--secondary-red);
+    text-decoration: underline;
+}
+
+/* Language Direction Switching */
+.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+.ltr {
+    direction: ltr;
+    text-align: left;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hamburger {
@@ -594,6 +689,11 @@ body {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+    }
+    
+    .language-switcher {
+        margin: 1rem 0;
+        justify-content: center;
     }
     
     .intro-content {

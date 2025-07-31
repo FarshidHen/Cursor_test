@@ -376,4 +376,137 @@ router.get('/contacts/export/csv', authenticateToken, async (req, res) => {
     }
 });
 
+// Social Media Management
+router.get('/social-media', authenticateToken, async (req, res) => {
+    try {
+        const socialMedia = await db.getSocialMedia();
+        res.json({
+            success: true,
+            data: socialMedia
+        });
+    } catch (error) {
+        console.error('Error getting social media:', error);
+        res.status(500).json({
+            success: false,
+            message: 'خطا در دریافت شبکه‌های اجتماعی'
+        });
+    }
+});
+
+router.post('/social-media', authenticateToken, async (req, res) => {
+    try {
+        const { platform, url, is_active = 1 } = req.body;
+
+        if (!platform || !url) {
+            return res.status(400).json({
+                success: false,
+                message: 'پلتفرم و آدرس الزامی است'
+            });
+        }
+
+        // Validate URL
+        try {
+            new URL(url);
+        } catch {
+            return res.status(400).json({
+                success: false,
+                message: 'آدرس معتبر نیست'
+            });
+        }
+
+        await db.updateSocialMedia(platform, url, is_active);
+
+        res.json({
+            success: true,
+            message: 'شبکه اجتماعی به‌روزرسانی شد'
+        });
+
+    } catch (error) {
+        console.error('Error updating social media:', error);
+        res.status(500).json({
+            success: false,
+            message: 'خطا در به‌روزرسانی شبکه اجتماعی'
+        });
+    }
+});
+
+router.delete('/social-media/:platform', authenticateToken, async (req, res) => {
+    try {
+        const { platform } = req.params;
+        const result = await db.deleteSocialMedia(platform);
+
+        if (result.changes === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'شبکه اجتماعی یافت نشد'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'شبکه اجتماعی حذف شد'
+        });
+
+    } catch (error) {
+        console.error('Error deleting social media:', error);
+        res.status(500).json({
+            success: false,
+            message: 'خطا در حذف شبکه اجتماعی'
+        });
+    }
+});
+
+// Settings Management  
+router.get('/settings', authenticateToken, async (req, res) => {
+    try {
+        const { key } = req.query;
+        if (key) {
+            const value = await db.getSetting(key);
+            res.json({
+                success: true,
+                data: { key, value }
+            });
+        } else {
+            // Get all settings (you might want to implement this)
+            res.json({
+                success: true,
+                data: {}
+            });
+        }
+    } catch (error) {
+        console.error('Error getting settings:', error);
+        res.status(500).json({
+            success: false,
+            message: 'خطا در دریافت تنظیمات'
+        });
+    }
+});
+
+router.post('/settings', authenticateToken, async (req, res) => {
+    try {
+        const { key, value, description } = req.body;
+
+        if (!key || value === undefined) {
+            return res.status(400).json({
+                success: false,
+                message: 'کلید و مقدار الزامی است'
+            });
+        }
+
+        await db.setSetting(key, value, description);
+
+        res.json({
+            success: true,
+            message: 'تنظیمات به‌روزرسانی شد'
+        });
+
+    } catch (error) {
+        console.error('Error updating settings:', error);
+        res.status(500).json({
+            success: false,
+            message: 'خطا در به‌روزرسانی تنظیمات'
+        });
+    }
+});
+
 module.exports = router;

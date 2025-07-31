@@ -69,6 +69,17 @@ class Database {
             )
         `;
 
+        const socialMediaTable = `
+            CREATE TABLE IF NOT EXISTS social_media (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                platform TEXT UNIQUE NOT NULL,
+                url TEXT,
+                is_active BOOLEAN DEFAULT 1,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        `;
+
         return new Promise((resolve, reject) => {
             this.db.serialize(() => {
                 this.db.run(contactsTable, (err) => {
@@ -93,9 +104,19 @@ class Database {
                         reject(err);
                         return;
                     }
+                });
+
+                this.db.run(socialMediaTable, (err) => {
+                    if (err) {
+                        console.error('Error creating social_media table:', err);
+                        reject(err);
+                        return;
+                    }
                     
                     // Insert default admin if not exists
                     this.createDefaultAdmin();
+                    // Insert default social media platforms
+                    this.createDefaultSocialMedia();
                     
                     console.log('✅ Database tables created successfully');
                     resolve();
@@ -124,6 +145,108 @@ class Database {
             } else if (this.changes > 0) {
                 console.log('🔐 Default admin created - Username: admin, Password: ' + defaultPassword);
             }
+        });
+    }
+
+    async createDefaultSocialMedia() {
+        const defaultPlatforms = [
+            { platform: 'instagram', url: 'https://instagram.com/shopifystudio', is_active: 1 },
+            { platform: 'twitter', url: 'https://twitter.com/shopifystudio', is_active: 1 },
+            { platform: 'linkedin', url: 'https://linkedin.com/company/shopifystudio', is_active: 1 },
+            { platform: 'youtube', url: 'https://youtube.com/@shopifystudio', is_active: 1 }
+        ];
+
+        const insertSocial = `
+            INSERT OR IGNORE INTO social_media (platform, url, is_active)
+            VALUES (?, ?, ?)
+        `;
+
+        for (const social of defaultPlatforms) {
+            this.db.run(insertSocial, [social.platform, social.url, social.is_active], function(err) {
+                if (err) {
+                    console.error('Error creating default social media:', err);
+                } else if (this.changes > 0) {
+                    console.log(`📱 Default ${social.platform} link created`);
+                }
+            });
+        }
+    }
+
+    // Social Media Methods
+    async getSocialMedia() {
+        const query = 'SELECT * FROM social_media WHERE is_active = 1 ORDER BY platform';
+        
+        return new Promise((resolve, reject) => {
+            this.db.all(query, (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+    }
+
+    async updateSocialMedia(platform, url, is_active = 1) {
+        const query = `
+            INSERT OR REPLACE INTO social_media (platform, url, is_active, updated_at)
+            VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+        `;
+        
+        return new Promise((resolve, reject) => {
+            this.db.run(query, [platform, url, is_active], function(err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve({ changes: this.changes });
+                }
+            });
+        });
+    }
+
+    async deleteSocialMedia(platform) {
+        const query = 'UPDATE social_media SET is_active = 0, updated_at = CURRENT_TIMESTAMP WHERE platform = ?';
+        
+        return new Promise((resolve, reject) => {
+            this.db.run(query, [platform], function(err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve({ changes: this.changes });
+                }
+            });
+        });
+    }
+
+    // Settings Methods
+    async getSetting(key) {
+        const query = 'SELECT value FROM settings WHERE key = ?';
+        
+        return new Promise((resolve, reject) => {
+            this.db.get(query, [key], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row ? row.value : null);
+                }
+            });
+        });
+    }
+
+    async setSetting(key, value, description = null) {
+        const query = `
+            INSERT OR REPLACE INTO settings (key, value, description, updated_at)
+            VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+        `;
+        
+        return new Promise((resolve, reject) => {
+            this.db.run(query, [key, value, description], function(err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve({ changes: this.changes });
+                }
+            });
         });
     }
 

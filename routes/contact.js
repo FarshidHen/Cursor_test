@@ -260,4 +260,21 @@ router.get('/stats', async (req, res) => {
     }
 });
 
+// Get social media links (public endpoint)
+router.get('/social-media', async (req, res) => {
+    try {
+        const socialMedia = await db.getSocialMedia();
+        res.json({
+            success: true,
+            data: socialMedia
+        });
+    } catch (error) {
+        console.error('Error getting social media:', error);
+        res.status(500).json({
+            success: false,
+            data: []
+        });
+    }
+});
+
 module.exports = router;
