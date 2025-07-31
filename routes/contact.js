@@ -37,8 +37,7 @@ const contactValidation = [
         .withMessage('نام و نام خانوادگی الزامی است')
         .isLength({ min: 2, max: 100 })
         .withMessage('نام باید بین ۲ تا ۱۰۰ کاراکتر باشد')
-        .trim()
-        .escape(),
+        .trim(),
     
     body('email')
         .isEmail()
@@ -49,7 +48,7 @@ const contactValidation = [
     
     body('phone')
         .optional()
-        .isMobilePhone('fa-IR')
+        .matches(/^[0-9\+\-\s\(\)]{7,20}$/)
         .withMessage('شماره تلفن معتبر وارد کنید')
         .isLength({ max: 20 })
         .withMessage('شماره تلفن خیلی طولانی است'),
@@ -66,7 +65,6 @@ const contactValidation = [
         .isLength({ min: 10, max: 1000 })
         .withMessage('پیام باید بین ۱۰ تا ۱۰۰۰ کاراکتر باشد')
         .trim()
-        .escape()
 ];
 
 // Submit contact form
@@ -75,6 +73,8 @@ router.post('/submit', contactValidation, async (req, res) => {
         // Check validation errors
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            console.log('Validation errors:', errors.array());
+            console.log('Request body:', req.body);
             return res.status(400).json({
                 success: false,
                 message: 'اطلاعات ارسالی معتبر نیست',
