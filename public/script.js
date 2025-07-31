@@ -437,7 +437,46 @@ const translations = {
         'useful-links': 'لینک‌های مفید',
         'admin-panel': 'پنل مدیریت',
         'quick-contact': 'تماس سریع',
-        'copyright': '© ۲۰۲۴ شاپیفای استودیو. تمامی حقوق محفوظ است.'
+        'copyright': '© ۲۰۲۴ شاپیفای استودیو. تمامی حقوق محفوظ است.',
+        'intro-title-1': 'توسعه‌دهنده حرفه‌ای',
+        'intro-title-2': 'برنامه‌های شاپیفای',
+        'intro-description': 'ما تیمی از توسعه‌دهندگان مجرب هستیم که برنامه‌های قدرتمند و نوآورانه برای پلتفرم شاپیفای می‌سازیم. با استفاده از جدیدترین تکنولوژی‌ها، کسب‌وکار شما را به سطح بعدی می‌بریم.',
+        'start-project': 'شروع پروژه',
+        'about-us-btn': 'درباره ما',
+        'shopify-apps': 'برنامه‌های شاپیفای',
+        'creative-solutions': 'راه‌حل‌های خلاقانه برای فروشگاه‌های آنلاین',
+        'about-us-title': 'درباره ما',
+        'about-us-subtitle': 'تیمی حرفه‌ای با تجربه گسترده در توسعه برنامه‌های شاپیفای',
+        'why-choose-us': 'چرا ما را انتخاب کنید؟',
+        'about-description': 'شاپیفای استودیو با بیش از ۵ سال تجربه در زمینه توسعه برنامه‌های شاپیفای، بیش از ۱۰۰ پروژه موفق را تحویل داده است. ما با درک عمیق از نیازهای کسب‌وکارهای آنلاین، راه‌حل‌هایی ارائه می‌دهیم که فروش شما را افزایش می‌دهد.',
+        'feature-1': 'طراحی UI/UX حرفه‌ای',
+        'feature-2': 'توسعه با جدیدترین تکنولوژی‌ها',
+        'feature-3': 'پشتیبانی ۲۴/۷',
+        'feature-4': 'تحویل در موعد مقرر',
+        'stat-projects': 'پروژه موفق',
+        'stat-clients': 'مشتری راضی',
+        'stat-experience': 'سال تجربه',
+        'stat-support': 'ساعت پشتیبانی',
+        'contact-title': 'تماس با ما',
+        'contact-subtitle': 'آماده همکاری با شما هستیم',
+        'contact-info': 'اطلاعات تماس',
+        'address-label': 'آدرس',
+        'address-value': 'تهران، خیابان ولیعصر، پلاک ۱۲۳',
+        'phone-label': 'تلفن',
+        'phone-value': '021-12345678',
+        'email-label': 'ایمیل',
+        'email-value': 'info@shopifystudio.ir',
+        'form-name': 'نام و نام خانوادگی',
+        'form-email': 'ایمیل',
+        'form-phone': 'شماره تماس',
+        'form-message': 'پیام شما',
+        'select-service': 'نوع خدمات مورد نظر',
+        'service-app': 'توسعه برنامه شاپیفای',
+        'service-theme': 'سفارشی‌سازی قالب',
+        'service-store': 'راه‌اندازی فروشگاه',
+        'service-consultation': 'مشاوره',
+        'send-message': 'ارسال پیام',
+        'page-title': 'شاپیفای استودیو - توسعه‌دهنده برنامه‌های شاپیفای'
     },
     en: {
         'nav-home': 'Home',
@@ -448,7 +487,46 @@ const translations = {
         'useful-links': 'Useful Links',
         'admin-panel': 'Admin Panel',
         'quick-contact': 'Quick Contact',
-        'copyright': '© 2024 Shopify Studio. All rights reserved.'
+        'copyright': '© 2024 Shopify Studio. All rights reserved.',
+        'intro-title-1': 'Professional',
+        'intro-title-2': 'Shopify Apps Developer',
+        'intro-description': 'We are a team of experienced developers who create powerful and innovative applications for the Shopify platform. Using the latest technologies, we take your business to the next level.',
+        'start-project': 'Start Project',
+        'about-us-btn': 'About Us',
+        'shopify-apps': 'Shopify Apps',
+        'creative-solutions': 'Creative solutions for online stores',
+        'about-us-title': 'About Us',
+        'about-us-subtitle': 'Professional team with extensive experience in Shopify app development',
+        'why-choose-us': 'Why Choose Us?',
+        'about-description': 'Shopify Studio with over 5 years of experience in Shopify app development has delivered more than 100 successful projects. With deep understanding of online business needs, we provide solutions that boost your sales.',
+        'feature-1': 'Professional UI/UX Design',
+        'feature-2': 'Development with Latest Technologies',
+        'feature-3': '24/7 Support',
+        'feature-4': 'On-time Delivery',
+        'stat-projects': 'Successful Projects',
+        'stat-clients': 'Happy Clients',
+        'stat-experience': 'Years Experience',
+        'stat-support': 'Hours Support',
+        'contact-title': 'Contact Us',
+        'contact-subtitle': 'Ready to collaborate with you',
+        'contact-info': 'Contact Information',
+        'address-label': 'Address',
+        'address-value': 'Tehran, Valiasr Street, No. 123',
+        'phone-label': 'Phone',
+        'phone-value': '021-12345678',
+        'email-label': 'Email',
+        'email-value': 'info@shopifystudio.ir',
+        'form-name': 'Full Name',
+        'form-email': 'Email',
+        'form-phone': 'Phone Number',
+        'form-message': 'Your Message',
+        'select-service': 'Select Service Type',
+        'service-app': 'Shopify App Development',
+        'service-theme': 'Theme Customization',
+        'service-store': 'Store Setup',
+        'service-consultation': 'Consultation',
+        'send-message': 'Send Message',
+        'page-title': 'Shopify Studio - Professional Shopify App Developer'
     }
 };
 
@@ -463,11 +541,22 @@ function switchLanguage(lang) {
     document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
     document.body.className = lang === 'fa' ? 'rtl' : 'ltr';
     
+    // Update page title
+    if (translations[lang] && translations[lang]['page-title']) {
+        document.title = translations[lang]['page-title'];
+    }
+    
     // Update all translatable elements
     document.querySelectorAll('[data-key]').forEach(element => {
         const key = element.getAttribute('data-key');
         if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = translations[lang][key];
+            } else if (element.tagName === 'OPTION') {
+                element.textContent = translations[lang][key];
+            } else {
+                element.textContent = translations[lang][key];
+            }
         }
     });
     
@@ -475,6 +564,29 @@ function switchLanguage(lang) {
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
+}
+
+// Font Awesome Detection & Fallback
+function detectFontAwesome() {
+    // Create a test element to check if Font Awesome is loaded
+    const testElement = document.createElement('i');
+    testElement.className = 'fas fa-home';
+    testElement.style.position = 'absolute';
+    testElement.style.left = '-9999px';
+    document.body.appendChild(testElement);
+    
+    const computedStyle = window.getComputedStyle(testElement, '::before');
+    const fontFamily = computedStyle.getPropertyValue('font-family');
+    
+    // If Font Awesome is not loaded, add fallback class
+    if (!fontFamily.includes('Font Awesome')) {
+        document.body.classList.add('icon-fallback');
+        console.log('Font Awesome not detected, using emoji fallbacks');
+    } else {
+        console.log('Font Awesome loaded successfully');
+    }
+    
+    document.body.removeChild(testElement);
 }
 
 // Language button event listeners
@@ -488,6 +600,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize language
     switchLanguage(currentLanguage);
+    
+    // Detect Font Awesome and apply fallbacks if needed
+    setTimeout(detectFontAwesome, 1000);
     
     // Load social media links
     loadSocialMediaLinks();

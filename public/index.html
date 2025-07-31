@@ -7,7 +7,47 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Multiple Font Awesome CDNs for reliability -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" crossorigin="anonymous">
+    <style>
+        /* Enhanced fallback icons using Unicode if Font Awesome fails to load */
+        .icon-fallback .fas.fa-store::before,
+        .icon-fallback .fab.fa-shopify::before,
+        .icon-fallback .fas.fa-rocket::before,
+        .icon-fallback .fas.fa-info-circle::before,
+        .icon-fallback .fas.fa-check::before,
+        .icon-fallback .fas.fa-map-marker-alt::before,
+        .icon-fallback .fas.fa-phone::before,
+        .icon-fallback .fas.fa-envelope::before,
+        .icon-fallback .fab.fa-telegram::before,
+        .icon-fallback .fab.fa-telegram-plane::before,
+        .icon-fallback .fab.fa-instagram::before,
+        .icon-fallback .fab.fa-linkedin::before,
+        .icon-fallback .fab.fa-github::before,
+        .icon-fallback .fas.fa-paper-plane::before,
+        .icon-fallback .fas.fa-user-shield::before {
+            font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+            font-size: 1.2em;
+        }
+        
+        /* Apply fallback emojis */
+        body.icon-fallback .fas.fa-store::before { content: "🏪"; }
+        body.icon-fallback .fab.fa-shopify::before { content: "🛍️"; }
+        body.icon-fallback .fas.fa-rocket::before { content: "🚀"; }
+        body.icon-fallback .fas.fa-info-circle::before { content: "ℹ️"; }
+        body.icon-fallback .fas.fa-check::before { content: "✅"; }
+        body.icon-fallback .fas.fa-map-marker-alt::before { content: "📍"; }
+        body.icon-fallback .fas.fa-phone::before { content: "📞"; }
+        body.icon-fallback .fas.fa-envelope::before { content: "✉️"; }
+        body.icon-fallback .fab.fa-telegram::before { content: "📱"; }
+        body.icon-fallback .fab.fa-telegram-plane::before { content: "📱"; }
+        body.icon-fallback .fab.fa-instagram::before { content: "📸"; }
+        body.icon-fallback .fab.fa-linkedin::before { content: "💼"; }
+        body.icon-fallback .fab.fa-github::before { content: "💻"; }
+        body.icon-fallback .fas.fa-paper-plane::before { content: "✈️"; }
+        body.icon-fallback .fas.fa-user-shield::before { content: "🛡️"; }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -158,29 +198,29 @@
                 <div class="contact-form">
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="نام و نام خانوادگی" required>
+                            <input type="text" id="name" name="name" data-key="form-name" placeholder="نام و نام خانوادگی" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="ایمیل" required>
+                            <input type="email" id="email" name="email" data-key="form-email" placeholder="ایمیل" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="شماره تماس">
+                            <input type="tel" id="phone" name="phone" data-key="form-phone" placeholder="شماره تماس">
                         </div>
                         <div class="form-group">
                             <select id="service" name="service" required>
-                                <option value="">نوع خدمات مورد نظر</option>
-                                <option value="app-development">توسعه برنامه شاپیفای</option>
-                                <option value="theme-customization">سفارشی‌سازی قالب</option>
-                                <option value="store-setup">راه‌اندازی فروشگاه</option>
-                                <option value="consultation">مشاوره</option>
+                                <option value="" data-key="select-service">نوع خدمات مورد نظر</option>
+                                <option value="app-development" data-key="service-app">توسعه برنامه شاپیفای</option>
+                                <option value="theme-customization" data-key="service-theme">سفارشی‌سازی قالب</option>
+                                <option value="store-setup" data-key="service-store">راه‌اندازی فروشگاه</option>
+                                <option value="consultation" data-key="service-consultation">مشاوره</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" placeholder="پیام شما" rows="5" required></textarea>
+                            <textarea id="message" name="message" data-key="form-message" placeholder="پیام شما" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-paper-plane"></i>
-                            ارسال پیام
+                            <span data-key="send-message">ارسال پیام</span>
                         </button>
                     </form>
                 </div>
